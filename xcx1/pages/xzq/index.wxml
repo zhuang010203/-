@@ -1,0 +1,40 @@
+<image class="bjimg" src="../images/bj.jpg" style="height:{{windowHeight}}px"></image>
+<image src="../images/music.png" class="music_img" style="transform:rotate({{music_img_zqq}}deg)" bindtap="musicView" wx:if="{{music_view_state < 3}}"></image>
+<image src="../images/music_stop.png" class="music_img" bindtap="musicView" wx:if="{{music_view_state >= 3}}"></image>
+<view class="all">
+  <view class="title" wx:if="{{topTextTime == 0}}">{{topText}}</view>
+  <view class="title" wx:elif="{{topTextTime > 0 && topTextTime < 112}}">{{topText}}_</view>
+  <view class="title" wx:else>{{topText}}</view>
+  <view>
+    <view class="title_wei_view">
+       <view class="title_wei">{{weiText}}</view>
+      <text class="reping_top">热评</text>
+    </view>
+    <view class="reping_view" style="white-space:pre-wrap" data-id="{{seehotarr['id']}}">{{seehotarr['content']}}</view>
+    <view class="reping_list" wx:for="{{seearr}}" wx:key="aaa" style="white-space:pre-wrap">{{seearr[index]['content']}}
+</view>
+  </view>
+  <block wx:if="{{music_view_state == 0}}">
+	  <view class="music_list_view" style="display:none">
+		<view class="music_top">{{music_top['zhname']}} - 薛之谦</view>
+		<view class="music_list" wx:for="{{music_list}}" wx:key="lists" bindtap="music_qiege" data-id="{{music_list[index]['id']}}">{{music_list[index]['zhname']}} - 薛之谦</view>
+		<view class="music_fanye" bindtap="music_next" data-id="{{music_list[index]['id']}}">下一页</view>
+	  </view>
+  </block>
+  <block wx:if="{{music_view_state == 1}}">
+	  <view class="music_list_view">
+		<view class="music_top">{{music_top['zhname']}} - 薛之谦</view>
+		<view class="music_list" wx:for="{{music_list}}" wx:key="lists" wx:if="{{music_list[index]['id'] == music_top['id']}}" style="color:#cecece">{{music_list[index]['zhname']}} - 薛之谦</view>
+		<view class="music_list" wx:for="{{music_list}}" wx:key="lists" bindtap="music_qiege" data-id="{{music_list[index]['id']}}" wx:if="{{music_list[index]['id'] != music_top['id']}}">{{music_list[index]['zhname']}} - 薛之谦</view>
+		<view class="music_fanye" bindtap="music_next" data-id="{{music_list[0]['id']}}">下一页</view>
+	  </view>
+  </block>
+  <view class="bottom" wx:if="{{see_view_status == 3}}">
+    <textarea placeholder="我想说..." maxlength="-1" fixed="true" disable-default-padding="true" bindinput="see_content" show-confirm-bar="false" value="{{see_content}}" bindconfirm="see_ok" ></textarea>
+    <button size="mini" bindtap="see_ok">诉说</button>
+  </view>
+  <view class="bottom" wx:elif="{{see_view_status != 3}}" style="display:none">
+    <textarea placeholder="我想说..." maxlength="-1" fixed="true" disable-default-padding="true" bindinput="see_content" show-confirm-bar="false" value="{{see_content}}" bindconfirm="see_ok" ></textarea>
+    <button size="mini" bindtap="see_ok">诉说</button>
+  </view>
+</view>
